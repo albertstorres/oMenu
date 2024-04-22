@@ -1,4 +1,4 @@
-from flask import request, make_response, jsonify
+from flask import request, make_response, jsonify, render_template
 
 from bancodedados.modelos.Produtos import Produtos
 from bancodedados.modelos.Usuarios import Usuarios

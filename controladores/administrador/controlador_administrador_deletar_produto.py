@@ -3,7 +3,7 @@ from bancodedados.modelos.Produtos import Produtos
 from bancodedados.modelos.Usuarios import Usuarios
 
 def administrador_deletar_produto(usuario_id) :
-    usuario_encontrado = Usuarios.select().where(Usuarios.id == usuario_id).dicts()
+    usuario_encontrado = Usuarios.get_by_id(usuario_id)
     if not usuario_encontrado :
         return make_response(
             jsonify("Usuário inálido!"),
@@ -11,7 +11,7 @@ def administrador_deletar_produto(usuario_id) :
         )
     
     req = request.get_json()
-    produto_encontrado = Produtos.get_by_id(req['produto_id']).dicts()
+    produto_encontrado = Produtos.get_by_id(req['produto_id'])
     if not produto_encontrado :
         return make_response(
             jsonify("Produto não encontrado!")
