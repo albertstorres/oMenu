@@ -17,8 +17,9 @@ def administrador_cadastrar_mesa (usuario_id) :
             jsonify("Usuário não cadastrado"),
             404
         )
+
     
-    mesa_encontrada = Mesas.select().where(Mesas.nome == req['nome']).dicts()
+    mesa_encontrada = Mesas.select().where(Mesas.nome == req['nome'])
     if mesa_encontrada :
         return make_response(
             jsonify("Mesa já cadastrada"),

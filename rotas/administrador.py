@@ -25,8 +25,8 @@ def usuarioCadastrar () :
 
 #Rota de criação de novas mesas. Faltando senha HASH
 @administrador_rotas.route('/mesa/<int:usuario_id>', methods=['POST'])
-def mesaCadastrar () :
-    return administrador_cadastrar_mesa ()
+def mesaCadastrar (usuario_id) :
+    return administrador_cadastrar_mesa (usuario_id)
 
 #Rota de cadastro de produtos. Faltando AWS-SDK (envio de arquivos). Faltando transcrever o arquivo descrição!
 @administrador_rotas.route('/produto/<int:usuario_id>', methods=['POST'])
