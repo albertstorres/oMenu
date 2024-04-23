@@ -15,3 +15,4 @@ def configure_rotas (app) :
 
 def configure_db () :
     db.connect()
+    

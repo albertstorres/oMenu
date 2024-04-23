@@ -1,42 +1,52 @@
 from flask import request, make_response, jsonify
+import bcrypt
 from bancodedados.modelos.Usuarios import Usuarios
 from bancodedados.modelos.Mesas import Mesas
+from funcoes.login.conferir_username_senha import conferir_username_senha
 
 
 def administrador_cadastrar_mesa (usuario_id) :
     req = request.get_json()
-    if not req['nome'] or not req['senha'] :
-        return make_response(
-            jsonify("Nome e senha da mesa, são obrigatórios."),
-            404
-        )
-    
-    administrador_encontrado = Usuarios.get_by_id(usuario_id)
-    if not administrador_encontrado :
-        return make_response(
-            jsonify("Usuário não cadastrado"),
-            404
-        )
 
-    
-    mesa_encontrada = Mesas.select().where(Mesas.nome == req['nome'])
-    if mesa_encontrada :
-        return make_response(
-            jsonify("Mesa já cadastrada"),
-            404
-        )
-    
-    mesa_cadastrada = Mesas.create(
-        nome = req['nome'],
-        senha = req['senha']
-    )
-    if not mesa_cadastrada :
-        return make_response(
-            jsonify("Erro interno do servidor"),
-            500
-        )
+    try:
+        dados_informados = conferir_username_senha(req['nome'], req['senha'])
+        if not dados_informados :
+            return make_response(
+                jsonify("Nome e senha da mesa, são obrigatórios."),
+                404
+            )
+        administrador_encontrado = Usuarios.get_by_id(usuario_id)
+        if not administrador_encontrado :
+            return make_response(
+                jsonify("Usuário não cadastrado"),
+                404
+            )
 
-    return make_response(
-        jsonify("Mesa cadastrada com sucesso"),
-        200
-    )
+        
+        mesa_encontrada = Mesas.select().where(Mesas.nome == req['nome'])
+        if mesa_encontrada :
+            return make_response(
+                jsonify("Mesa já cadastrada"),
+                404
+            )
+        
+        senha_hash = bcrypt.hashpw(req['senha'].encode('UTF-8'), bcrypt.gensalt())
+        print(f"SENHA EM UNICODE")
+
+        mesa_cadastrada = Mesas.create(
+            nome = req['nome'],
+            senha = senha_hash
+        )
+        if not mesa_cadastrada :
+            return make_response(
+                jsonify("Erro interno do servidor"),
+                500
+            )
+
+        return make_response(
+            jsonify("Mesa cadastrada com sucesso"),
+            200
+        )
+    
+    except AttributeError :
+        return NameError
