@@ -1,4 +1,5 @@
 from flask import make_response, jsonify
+from flask_jwt_extended import create_access_token
 import bcrypt
 from bancodedados.modelos.Mesas import Mesas
 
@@ -17,8 +18,11 @@ def cliente_login (mesa_nome, mesa_senha) :
                 jsonify("Username ou senha inválidos"),
                 404
             )
+        
+        token = create_access_token(identity={"nome": mesa_encontrada.nome})
+
         return make_response(
-            jsonify("Mesa logada"),
+            jsonify(f"token: {token}"),
             200
         )
 

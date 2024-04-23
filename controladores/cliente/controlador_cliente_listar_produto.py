@@ -1,4 +1,5 @@
 from flask import make_response, jsonify
+from flask_jwt_extended import get_jwt_identity
 from bancodedados.modelos.Mesas import Mesas
 from bancodedados.modelos.Produtos import Produtos
 
