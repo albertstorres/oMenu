@@ -7,7 +7,7 @@ def administrador_cadastrar_usuario () :
 
     try :
     
-        usuario_encontrado = Usuarios.select().where(Usuarios.username.contains(req['username']))
+        usuario_encontrado = Usuarios.get_or_none(Usuarios.username.contains(req['username']))
         if usuario_encontrado :
             return make_response(
                 jsonify("Usaário já cadastrado"),

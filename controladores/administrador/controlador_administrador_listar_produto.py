@@ -1,17 +1,24 @@
-from flask import request, make_response, jsonify
+from flask import  make_response, jsonify
+from flask_jwt_extended import get_jwt_identity
 from bancodedados.modelos.Usuarios import Usuarios
 from bancodedados.modelos.Produtos import Produtos
 
-def administrador_listar_produto (usuario_id) :
-    administrador_encontrado = Usuarios.get_by_id(usuario_id)
-    if not administrador_encontrado :
+def administrador_listar_produto () :
+    usuario = get_jwt_identity()
+    try :
+
+        usuario_encontrado = Usuarios.get_or_none(Usuarios.username.contains(usuario['username']))
+        if not usuario_encontrado :
+            return make_response(
+                jsonify({"mensagem": "Usuário não encontrado!"}),
+                404
+            )
+        produtos = Produtos.select().dicts()
+        print(f"LISTA DE PRODUTOS: {produtos}")
         return make_response(
-            jsonify({"mensagem": "Administrador não encontrado!"}),
-            404
+            jsonify(list(produtos)),
+            200
         )
-    produtos = Produtos.select().dicts()
-    print(f"LISTA DE PRODUTOS: {produtos}")
-    return make_response(
-        jsonify(list(produtos)),
-        200
-    )
+    
+    except ArithmeticError :
+        return NameError

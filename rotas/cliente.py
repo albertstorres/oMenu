@@ -14,10 +14,10 @@ def login (mesa_nome, mesa_senha) :
     return cliente_login (mesa_nome, mesa_senha)
 
 #Rota para listagem do cardápio. Faltando ordenar por categoria_id
-@cliente_rotas.route('/cardapio/<int:mesa_id>', methods=['GET'])
+@cliente_rotas.route('/cardapio/', methods=['GET'])
 @jwt_required()
-def cardapio (mesa_id) :
-    return cliente_listar_produto (mesa_id)
+def cardapio () :
+    return cliente_listar_produto ()
 
 
 #Rota fazer pedido

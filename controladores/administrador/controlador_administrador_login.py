@@ -19,7 +19,7 @@ def administrador_login () :
                 404
             )
     
-        usuario_encontrado = Usuarios.get(Usuarios.username.contains(req['username']))
+        usuario_encontrado = Usuarios.get_or_none(Usuarios.username.contains(req['username']))
         if not usuario_encontrado : 
             return make_response(
                 jsonify("Usuário ou senha inválidos!"),
@@ -37,5 +37,6 @@ def administrador_login () :
             jsonify(f"token: {token}"),
             200
         )
+    
     except AttributeError :
         return NameError

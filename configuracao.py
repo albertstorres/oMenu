@@ -7,7 +7,6 @@ from bancodedados.bancodedados import db
 
 load_dotenv()
 
-
 def configure_all (app) :
     configure_rotas(app)
     configure_db()

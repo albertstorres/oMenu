@@ -1,13 +1,15 @@
 from flask import request, make_response, jsonify
 import bcrypt
+from flask_jwt_extended import get_jwt_identity
 from bancodedados.modelos.Usuarios import Usuarios
 from bancodedados.modelos.Mesas import Mesas
 from funcoes.login.conferir_username_senha import conferir_username_senha
 
 
-def administrador_cadastrar_mesa (usuario_id) :
+def administrador_cadastrar_mesa () :
     req = request.get_json()
-
+    usuario = get_jwt_identity()
+    
     try:
         dados_informados = conferir_username_senha(req['nome'], req['senha'])
         if not dados_informados :
@@ -15,14 +17,14 @@ def administrador_cadastrar_mesa (usuario_id) :
                 jsonify("Nome e senha da mesa, são obrigatórios."),
                 404
             )
-        administrador_encontrado = Usuarios.get_by_id(usuario_id)
-        if not administrador_encontrado :
+
+        usuario_encontrado = Usuarios.get_or_none(Usuarios.username.contains(usuario['username']))
+        if not usuario_encontrado :
             return make_response(
                 jsonify("Usuário não cadastrado"),
                 404
             )
 
-        
         mesa_encontrada = Mesas.select().where(Mesas.nome == req['nome'])
         if mesa_encontrada :
             return make_response(
@@ -31,7 +33,6 @@ def administrador_cadastrar_mesa (usuario_id) :
             )
         
         senha_hash = bcrypt.hashpw(req['senha'].encode('UTF-8'), bcrypt.gensalt())
-        print(f"SENHA EM UNICODE")
 
         mesa_cadastrada = Mesas.create(
             nome = req['nome'],

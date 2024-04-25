@@ -26,22 +26,22 @@ def usuarioCadastrar () :
     return administrador_cadastrar_usuario ()
 
 #Rota de criação de novas mesas. [COMPLETA]
-@administrador_rotas.route('/mesa/<int:usuario_id>', methods=['POST'])
+@administrador_rotas.route('/mesa/', methods=['POST'])
 @jwt_required()
-def mesaCadastrar (usuario_id) :
-    return administrador_cadastrar_mesa (usuario_id)
+def mesaCadastrar () :
+    return administrador_cadastrar_mesa ()
 
 #Rota de cadastro de produtos. Faltando AWS-SDK (envio de arquivos). Faltando transcrever o arquivo descrição!
-@administrador_rotas.route('/produto/<int:usuario_id>', methods=['POST'])
+@administrador_rotas.route('/produto/', methods=['POST'])
 @jwt_required()
-def produtoCadastrar (usuario_id) :
-    return administrador_cadastrar_produto (usuario_id)
+def produtoCadastrar () :
+    return administrador_cadastrar_produto ()
 
 #Rota de listar os produtos. Faltando ordenar por categoria_id
-@administrador_rotas.route('/produto/<int:usuario_id>', methods=['GET'])
+@administrador_rotas.route('/produto/', methods=['GET'])
 @jwt_required()
-def produtoListar (usuario_id) :
-    return administrador_listar_produto (usuario_id)
+def produtoListar () :
+    return administrador_listar_produto ()
 
 #Rota de excluir um produto.
 @administrador_rotas.route('/produto/<int:usuario_id>', methods=['DELETE'])

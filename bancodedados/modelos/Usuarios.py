@@ -6,5 +6,5 @@ class BaseModel (Model):
         database = db
 
 class Usuarios (BaseModel) :
-    username = CharField(unique=True)
+    username = CharField()
     senha = CharField()
