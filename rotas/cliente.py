@@ -3,6 +3,7 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 
 #Importação dos controladores
+from controladores.cliente.controlador_cliente_detalhar_produto import cliente_detalhar_produto
 from controladores.cliente.controlador_cliente_login import cliente_login
 from controladores.cliente.controlador_cliente_listar_produto import cliente_listar_produto
 
@@ -18,6 +19,12 @@ def login (mesa_nome, mesa_senha) :
 @jwt_required()
 def cardapio () :
     return cliente_listar_produto ()
+
+#Rota detalhar pedido.
+@cliente_rotas.route('/produto/<int:produto_id>', methods=['GET'])
+@jwt_required()
+def detalharProduto (produto_id) : 
+    return cliente_detalhar_produto (produto_id)
 
 
 #Rota fazer pedido

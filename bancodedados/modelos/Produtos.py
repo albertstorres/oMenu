@@ -1,5 +1,6 @@
-from peewee import Model, CharField, IntegerField, TextField
+from peewee import Model, CharField, IntegerField, TextField, ForeignKeyField
 from bancodedados.bancodedados import db
+from bancodedados.modelos.Categorias import Categorias
 
 class BaseModel (Model) :
     class Meta :
@@ -9,7 +10,7 @@ class Produtos (BaseModel) :
   nome = CharField(null=False)
   detalhamento = TextField(null=False)
   valor = IntegerField (null=False)
-  categoria_id = IntegerField()
+  categoria_id = ForeignKeyField(Categorias, backref='produtos')
   audio = CharField()
   imagem = CharField()
   video = CharField()
