@@ -50,10 +50,10 @@ def produtoDetalhar (produto_id) :
     return administrador_detalhar_produto (produto_id)
 
 #Rota de excluir um produto.
-@administrador_rotas.route('/produto/<int:usuario_id>', methods=['DELETE'])
+@administrador_rotas.route('/produto/', methods=['DELETE'])
 @jwt_required()
-def produtoDeletar (usuario_id) :
-    return administrador_deletar_produto (usuario_id)
+def produtoDeletar () :
+    return administrador_deletar_produto ()
 
 #Rota de atualizar um produto. Faltando melhorar o cadastro apenas do que se deseja atualizar
 @administrador_rotas.route('/produto/<int:usuario_id>', methods=['PUT'])

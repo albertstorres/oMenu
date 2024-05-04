@@ -5,10 +5,11 @@ from bancodedados.modelos.Usuarios import Usuarios
 
 def administrador_atualizar_produto () :
     req = request.get_json()
+    usuario = get_jwt_identity()
     produto_encontrado = None
 
     try :
-        usuario = get_jwt_identity()
+        
         usuario_encontrado = Usuarios.select().where(Usuarios.username.contains(usuario['username']))
         if not usuario_encontrado :
             return make_response(

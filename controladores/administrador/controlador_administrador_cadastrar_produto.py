@@ -10,7 +10,7 @@ def administrador_cadastrar_produto () :
     usuario = get_jwt_identity()
 
     try :
-        print(f'USUARIO: {usuario['username']}')
+
         usuario_encontrado = Usuarios.get_or_none(Usuarios.username.contains(usuario['username']))
         if not usuario_encontrado :
             return make_response(
@@ -25,7 +25,7 @@ def administrador_cadastrar_produto () :
                 404
             )
         
-        produto_encontrado = Produtos.select().where(Produtos.nome == (req['nome']))
+        produto_encontrado = Produtos.select().where(Produtos.nome.contains(req['nome']))
         if produto_encontrado :
             return make_response(
                 jsonify("Produto já cadastrado!"),
