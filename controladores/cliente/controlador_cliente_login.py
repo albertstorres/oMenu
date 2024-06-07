@@ -20,6 +20,11 @@ def cliente_login (mesa_nome, mesa_senha) :
             )
         
         token = create_access_token(identity={"nome": mesa_encontrada.nome})
+        if not token :
+            return make_response(
+                jsonify("Erro interno do servidor"),
+                500
+            )
 
         return make_response(
             jsonify(f"token: {token}"),

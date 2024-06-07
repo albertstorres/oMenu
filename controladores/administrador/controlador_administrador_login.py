@@ -8,13 +8,7 @@ def administrador_login () :
     req = request.get_json()
 
     try :
-        dados_informados = conferir_username_senha(req['username'], req['senha'])
-        if not dados_informados :
-            return make_response(
-                jsonify("username e senha saão obrigatórios"),
-                404
-            )
-    
+        
         usuario_encontrado = Usuarios.get_or_none(Usuarios.username.contains(req['username']))
         if not usuario_encontrado : 
             return make_response(

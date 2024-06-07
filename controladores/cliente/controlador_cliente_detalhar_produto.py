@@ -26,5 +26,5 @@ def cliente_detalhar_produto (produto_id) :
             200
         )
     
-    except ArithmeticError :
+    except AttributeError :
         return NameError 

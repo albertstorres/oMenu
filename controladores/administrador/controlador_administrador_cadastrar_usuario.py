@@ -1,16 +1,25 @@
 from flask import request, jsonify, make_response
 import bcrypt
+from flask_jwt_extended import get_jwt_identity
 from bancodedados.modelos.Usuarios import Usuarios
 
 def administrador_cadastrar_usuario () :
     req = request.get_json()
+    usuario = get_jwt_identity()
 
     try :
     
-        usuario_encontrado = Usuarios.get_or_none(Usuarios.username.contains(req['username']))
+        usuario_validado = Usuarios.get_or_none(Usuarios.username.contains(usuario['username']))
+        if not usuario_validado :
+            return make_response(
+                jsonify("Usaário não cadastrado"),
+                404
+            )
+
+        usuario_encontrado = Usuarios.select().where(Usuarios.username.contains(req['username']))
         if usuario_encontrado :
             return make_response(
-                jsonify("Usaário já cadastrado"),
+                jsonify("Usuário já cadastrado"),
                 404
             )
 

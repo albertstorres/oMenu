@@ -2,11 +2,11 @@ from flask import request, make_response, jsonify
 from flask_jwt_extended import get_jwt_identity
 from bancodedados.modelos.Produtos import Produtos
 from bancodedados.modelos.Usuarios import Usuarios
+from bancodedados.modelos.Categorias import Categorias
 
 def administrador_atualizar_produto () :
     req = request.get_json()
     usuario = get_jwt_identity()
-    produto_encontrado = None
 
     try :
         
@@ -20,7 +20,15 @@ def administrador_atualizar_produto () :
         produto_encontrado = Produtos.get_by_id(req['produto_id'])
         if not produto_encontrado :
             return make_response(
-                jsonify("Produto não encontrado.")
+                jsonify("Produto não encontrado."),
+                404
+            )
+        
+        categoria_encontrada = Categorias.get_by_id(req['categoria_id'])
+        if not categoria_encontrada :
+            return make_response(
+                jsonify("Categoria não encontrada"),
+                404
             )
         
         produto_encontrado.descricao = req['descricao']
@@ -32,7 +40,7 @@ def administrador_atualizar_produto () :
         produto_encontrado.save()
 
         return make_response(
-            jsonify("Produto atualizado"),
+            jsonify("Produto atuakizado com sucesso."),
             201
         )
     

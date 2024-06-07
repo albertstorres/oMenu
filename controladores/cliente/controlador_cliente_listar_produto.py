@@ -15,6 +15,11 @@ def cliente_listar_produto () :
                 404
             )
         produtos = Produtos.select().dicts()
+        if not produtos :
+            return make_response(
+                jsonify("Erro interno do servidor"),
+                500
+            )
 
         return make_response(
             jsonify(list(produtos)),

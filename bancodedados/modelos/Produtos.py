@@ -11,7 +11,6 @@ class Produtos (BaseModel) :
   detalhamento = TextField(null=False)
   valor = IntegerField (null=False)
   categoria_id = ForeignKeyField(Categorias, backref='produtos')
-  audio = CharField()
   imagem = CharField()
   video = CharField()
   

@@ -56,7 +56,7 @@ def produtoDeletar () :
     return administrador_deletar_produto ()
 
 #Rota de atualizar um produto. Faltando melhorar o cadastro apenas do que se deseja atualizar
-@administrador_rotas.route('/produto/<int:usuario_id>', methods=['PUT'])
+@administrador_rotas.route('/produto/', methods=['PUT'])
 @jwt_required()
-def produtoAtualizar (usuario_id) :
-    return administrador_atualizar_produto (usuario_id)
+def produtoAtualizar () :
+    return administrador_atualizar_produto ()

@@ -1,6 +1,5 @@
 from flask import  make_response, jsonify
 from flask_jwt_extended import get_jwt_identity
-from bancodedados.modelos.Categorias import Categorias
 from bancodedados.modelos.Usuarios import Usuarios
 from bancodedados.modelos.Produtos import Produtos
 
@@ -14,8 +13,14 @@ def administrador_listar_produto () :
                 jsonify({"mensagem": "Usuário não encontrado!"}),
                 404
             )
-        produtos = Produtos.select(Produtos).join(Categorias).group_by(Categorias.id, Produtos.id).dicts()
-        print(f"LISTA DE PRODUTOS: {produtos}")
+        
+        produtos = Produtos.select().dicts()
+        if not produtos :
+            return make_response(
+                jsonify("Erro interno do servidor"),
+                500
+            )
+
         return make_response(
             jsonify(list(produtos)),
             200

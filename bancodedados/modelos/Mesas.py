@@ -6,7 +6,7 @@ class BaseModel (Model) :
         database = db
 
 class Mesas (BaseModel) :
-   nome = CharField()
-   senha = CharField()
+   nome = CharField(null=False)
+   senha = CharField(null=False)
 
    

@@ -4,8 +4,9 @@ from bancodedados.modelos.Produtos import Produtos
 from bancodedados.modelos.Usuarios import Usuarios
 
 def administrador_deletar_produto() :
-    usuario = get_jwt_identity()
+
     req = request.get_json()
+    usuario = get_jwt_identity()
 
     try :
 
