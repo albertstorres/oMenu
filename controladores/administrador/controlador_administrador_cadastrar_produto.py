@@ -37,7 +37,6 @@ def administrador_cadastrar_produto () :
             detalhamento=req['detalhamento'],
             valor=req['valor'] / 100,
             categoria_id=req['categoria_id'],
-            audio=req['audio'],
             imagem=req['imagem'],
             video=req['video'],
         )

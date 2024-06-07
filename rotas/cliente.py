@@ -21,7 +21,7 @@ def cardapio () :
     return cliente_listar_produto ()
 
 #Rota detalhar pedido.
-@cliente_rotas.route('/produto/<int:produto_id>', methods=['GET'])
+@cliente_rotas.route('/produtoDetalhado/<int:produto_id>', methods=['GET'])
 @jwt_required()
 def detalharProduto (produto_id) : 
     return cliente_detalhar_produto (produto_id)

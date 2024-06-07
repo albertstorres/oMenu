@@ -2,7 +2,6 @@ from flask import request, make_response, jsonify
 import bcrypt
 from flask_jwt_extended import create_access_token
 from bancodedados.modelos.Usuarios import Usuarios
-from funcoes.login.conferir_username_senha import conferir_username_senha
 
 def administrador_login () :
     req = request.get_json()

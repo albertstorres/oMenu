@@ -21,7 +21,7 @@ def administrador_detalhar_produto (produto_id) :
                 jsonify("Produto não encontrado"),
                 404
             )
-        
+
         return make_response(
             jsonify(list(produto_encontrado))
         )
