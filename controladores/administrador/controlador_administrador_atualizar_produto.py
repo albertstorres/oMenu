@@ -39,7 +39,7 @@ def administrador_atualizar_produto () :
         produto_encontrado.save()
 
         return make_response(
-            jsonify("Produto atuakizado com sucesso."),
+            jsonify("Produto atualizado com sucesso."),
             201
         )
     

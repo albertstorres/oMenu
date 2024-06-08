@@ -3,10 +3,12 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 
 #Importação dos controladores
+from controladores.administrador.controlador_administrador_atualizar_mesa import administrador_atualizar_mesa
 from controladores.administrador.controlador_administrador_atualizar_produto import administrador_atualizar_produto
 from controladores.administrador.controlador_administrador_cadastrar_mesa import administrador_cadastrar_mesa
 from controladores.administrador.controlador_administrador_cadastrar_produto import administrador_cadastrar_produto
 from controladores.administrador.controlador_administrador_cadastrar_usuario import administrador_cadastrar_usuario
+from controladores.administrador.controlador_administrador_deletar_pedido import administrador_deletar_pedido
 from controladores.administrador.controlador_administrador_deletar_produto import administrador_deletar_produto
 from controladores.administrador.controlador_administrador_detalhar_pedido import administrador_detalhar_pedido
 from controladores.administrador.controlador_administrador_detalhar_produto import administrador_detalhar_produto
@@ -62,7 +64,18 @@ def pedidoDetalhar (pedido_id) :
 def produtoDeletar () :
     return administrador_deletar_produto ()
 
-#Rota de atualizar um produto. Faltando melhorar o cadastro apenas do que se deseja atualizar
+#Rota de excluir pedido
+@administrador_rotas.route('/pedido/<int:pedido_id>', methods=['DELETE'])
+@jwt_required ()
+def pedidoDeletar (pedido_id) :
+    return administrador_deletar_pedido (pedido_id)
+#Rota que permite atualizar uma mesa/cliente
+@administrador_rotas.route('/mesa/', methods=['PUT'])
+@jwt_required ()
+def mesaAtualizar () :
+    return administrador_atualizar_mesa ()
+
+#Rota de atualizar um produto. 
 @administrador_rotas.route('/produto/', methods=['PUT'])
 @jwt_required()
 def produtoAtualizar () :
