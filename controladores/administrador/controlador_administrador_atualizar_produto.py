@@ -34,7 +34,6 @@ def administrador_atualizar_produto () :
         produto_encontrado.descricao = req['descricao']
         produto_encontrado.valor = req['valor']
         produto_encontrado.categoria_id = req['categoria_id']
-        produto_encontrado.audio = req['audio']
         produto_encontrado.imagem = req['imagem']
         produto_encontrado.video = req['video']
         produto_encontrado.save()

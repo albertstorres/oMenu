@@ -8,6 +8,7 @@ from controladores.administrador.controlador_administrador_cadastrar_mesa import
 from controladores.administrador.controlador_administrador_cadastrar_produto import administrador_cadastrar_produto
 from controladores.administrador.controlador_administrador_cadastrar_usuario import administrador_cadastrar_usuario
 from controladores.administrador.controlador_administrador_deletar_produto import administrador_deletar_produto
+from controladores.administrador.controlador_administrador_detalhar_pedido import administrador_detalhar_pedido
 from controladores.administrador.controlador_administrador_detalhar_produto import administrador_detalhar_produto
 from controladores.administrador.controlador_administrador_listar_produto import administrador_listar_produto
 from controladores.administrador.controlador_administrador_login import administrador_login
@@ -48,6 +49,12 @@ def produtoListar () :
 @jwt_required()
 def produtoDetalhar (produto_id) :
     return administrador_detalhar_produto (produto_id)
+
+#Rota detalhar pedido
+@administrador_rotas.route('/pedido/<int:pedido_id>', methods=['GET'])
+@jwt_required()
+def pedidoDetalhar (pedido_id) :
+    return administrador_detalhar_pedido (pedido_id)
 
 #Rota de excluir um produto.
 @administrador_rotas.route('/produto/', methods=['DELETE'])

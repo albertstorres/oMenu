@@ -8,5 +8,5 @@ class BaseModel (Model) :
 
 class Pedidos (BaseModel) :
     mesa_id = ForeignKeyField(Mesas, backref='pedidos')
-    observacao = TextField
+    observacao = TextField()
     valor = IntegerField(null=False)
